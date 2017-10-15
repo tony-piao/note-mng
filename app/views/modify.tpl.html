@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改内容</title>
+    <link rel="stylesheet" href="../css/bootstrap-3.3.7/dist/css/bootstrap.css">
+    <script type="text/javascript" src="../js/lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../js/lib/layer/layer.js"></script>
+    <style>
+        .form-horizontal{
+            padding: 10px 70px;
+        }
+        #sureBtn{
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+
+            var userName = sessionStorage.getItem("key");
+            if(!userName){
+                location.href="login.tpl.html";
+            }
+
+            $("#sureBtn").click(function () {
+                var u1=location.href;
+                var gIndex=u1.indexOf("=");
+                var gId=u1.substring(gIndex+1,u1.length);
+                var addTitle=$("#inputTitle").val();
+                var addKeyWord=$("#inputKey").val();
+                var addDetail=$("#inputDetail").val();
+                $.ajax({
+                    type:'post',
+                    url:'',
+                    data:{id:gId,title:addTitle,keyword:addKeyWord,detail:addDetail},
+                    dataType:'json',
+                    success:function(){
+                        var index=parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                        parent.getData();
+                    }
+                });
+
+            })
+
+
+        })
+    </script>
+</head>
+<body>
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="inputTitle" class="col-xs-3 control-label">标题：</label>
+        <div class="col-xs-8">
+            <input type="text" class="form-control" id="inputTitle" placeholder="标题">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputKey" class="col-xs-3 control-label">关键词：</label>
+        <div class="col-xs-8">
+            <input type="text" class="form-control" id="inputKey" placeholder="关键词">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-3 control-label">内容:</label>
+        <div class="col-xs-8">
+            <textarea class="form-control" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-offset-2 col-sm-10">
+            <button type="button" class="btn btn-default" id="sureBtn">确定</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

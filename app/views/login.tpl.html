@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页</title>
+    <link rel="stylesheet" href="../css/bootstrap-3.3.7/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <script type="text/javascript" src="../js/lib/jquery/jquery.js"></script>
+    <script type="text/javascript">
+        function saveUsername() {
+            var username = $('#inputUsername').val();
+            var password = $('#inputPassword').val();
+            if (username === '' || password === '') {
+                alert("输入为空，请重新输入!")
+            } else {
+                $.ajax({
+                    type: 'post',
+                    url: '/api/user/loginValid',
+                    data: {username: username, password: password},
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.result) {
+                            sessionStorage.setItem("key", username);
+                            location.href = "index.tpl.html";
+                        } else {
+                            $("#inputP").html(res.msg);
+                        }
+
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+<div>
+    <img src="../image/logo.png">
+</div>
+<div class="login-size">
+    <div class="container-fluid">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="inputUsername" class="col-xs-3 control-label">用户名:</label>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" id="inputUsername" placeholder="用户名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="col-xs-3 control-label">密码:</label>
+                <div class="col-xs-6">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                </div>
+            </div>
+            <!--<div class="form-group">-->
+            <!--<label for="inputPassword3" class="col-xs-3 control-label">验证码:</label>-->
+            <!--<div class="col-xs-6">-->
+            <!--<input type="text" class="form-control" id="inputPassword3" placeholder="请输入验证码">-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="form-group">
+                <div class="col-xs-offset-3 col-xs-6 controls">
+                    <button type="button" class="btn btn-default" onclick="saveUsername()">登录</button>
+                    <span id="inputP"></span>
+                </div>
+                <!--<div class="col-xs-4 controls">-->
+                <!--<button type="button" class="btn btn-default">重置</button>-->
+                <!--</div>-->
+            </div>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>
