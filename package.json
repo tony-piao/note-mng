@@ -8,11 +8,8 @@
   "licenpwsse": "ISC",
   "devDependencies": {
     "browser-sync": "",
-    "extend": "",
     "http-proxy-middleware": "",
-    "less": "^2.7.1",
     "morgan": "",
-    "through2": "",
     "gulp": "^3.9.1"
   }
 }
